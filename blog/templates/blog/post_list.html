@@ -1,31 +1,13 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Mike's blog</title>
-    </head>
-<body>
-    <header>
-        <h1><a href = "/">Mike's Django Girls Blog</a></h1>
-    </header>
-    <h3>Dynamic Posts</h3>
-    {% for post in posts %}
-        <article>
-            <time>published: {{post.published_date}}</time>
-            <h4><a href="">{{post.title}}</a></h4>
-            <p>{{post.text|linebreaksbr}}</p>
-        </article>        
-    {% endfor %}
-    <h3>Static posts</h3>
-    <article>
-        <time>published: 17.11.2025, 0700</time>
-        <h4><a href = "">My first post</a></h4>
-        <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-    </article>
+{% extends 'blog/base.html' %}
 
-    <article>
-        <time>published: 17.11.2025, 0700</time>
-        <h4><a href = "">My second post</a></h4>
-        <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-    </article>
-</body>
-</html>
+{% block content %}
+    {% for post in posts %}
+        <article class="post">
+            <time class="date">
+                {{ post.published_date }}
+            </time>
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </article>
+    {% endfor %}
+{% endblock content %}
